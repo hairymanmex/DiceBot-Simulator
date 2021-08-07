@@ -43,7 +43,7 @@ class Dice:
         self.roll = 1       # this will be the current number generated "lastBet.roll"
         self.basebet = 0
         self.nonce = self.nonce_start  # lastBet.nonce
-        self.balance = 100000
+        self.balance = 0
         self.start_balance = self.balance
         self.currentstreak = 0  # keep track of win and los streak in + and - negative
         self.multiplier = 0
@@ -64,6 +64,7 @@ class Dice:
         self.plot = False
         self.wins = 0
         self.losses = 0
+        self.wager = 0
 
 
 
@@ -85,6 +86,7 @@ class Dice:
 
     def bal(self):
         self.lastbalance = self.balance
+        self.wager += self.nextbet
         if self.win:
 
             self.balance = self.payout * self.nextbet + self.balance - self.nextbet
@@ -94,6 +96,7 @@ class Dice:
 
         self.profit = self.balance - self.start_balance
         self.currentprofit = self.balance - self.lastbalance
+
 
     def winloss(self):
 
@@ -116,7 +119,7 @@ class Dice:
                 self.currentstreak += 1
         else:
             self.losses += 1
-            if self.currentstreak > 0
+            if self.currentstreak > 0:
                 self.currentstreak = -1
             else:
                 self.currentstreak -= 1
@@ -131,7 +134,8 @@ class Dice:
         self.nextbet = g.nextbet
         self.bethigh = g.bethigh
         self.payout = (100-self.edge) / self.chance
-        print(self.edge)
+        self.start_balance = self.balance
+
 
     def previous(self):
         self.amount = self.previousbet
@@ -169,10 +173,12 @@ lua_func = lua.eval('''
         resetstats = bot.resetstats
         resetseed = bot.resetseed
         ching = bot.ching
+        wager = bot.wager
         
         
             
         dofile(file) 
+        
         
         bot.nextbet = nextbet
        
@@ -205,7 +211,7 @@ lua_func = lua.eval('''
                 high2 = 'low'
             end
             
-            print(string.format('stake: %2.8f %s balance: %8.8f roll: %2.2f %s',bot.nextbet,win2,bot.balance,bot.roll,high2))
+            print(string.format('stake: %2.8f %s balance: %8.8f wager: %8.8f roll: %2.2f %s',bot.nextbet,win2,bot.balance,bot.wager,bot.roll,high2))
             balance = bot.balance  
             
             lastbet = bot.lastbet 
@@ -213,6 +219,13 @@ lua_func = lua.eval('''
             bethigh = bot.bethigh
             previousbet = bot.previousbet
             lastBet = bot
+            profit = bot.profit
+            currentprofit = bot.currentprofit
+            currentstreak = bot.currentstreak
+            
+            wins = bot.wins
+            losses = bot.losses
+            wagered = bot.wager
             
             
             
