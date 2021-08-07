@@ -19,12 +19,16 @@ class wolfbet:
         hash = hmac.new(message, bserver_seed,hashlib.sha256).hexdigest()
 
         index = 0
-        self.luckynumber = int(hash[index:5],16)
+        fiveset = 5
+        number = hash[index:5]
+
+        self.luckynumber = int(number,16)
 
         while (self.luckynumber >= 1000000):
-            self.luckynumber = int(hash[index:5],16)
+            number = hash[index:fiveset]
+            self.luckynumber = int(number,16)
             index += 5
-        return (format(self.luckynumber % 10000 /100, ".2f"))
-
+            fiveset += 5
+        return float(format(self.luckynumber % 10000 /100, ".2f"))
 
 
