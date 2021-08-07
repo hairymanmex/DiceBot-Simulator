@@ -66,6 +66,7 @@ class Dice:
 
 
 
+
     def gen(self):
 
         self.previousbalance = self.balance
@@ -81,6 +82,7 @@ class Dice:
             plotbet(nonceset, luckyarray, self.win)
 
     def bal(self):
+        self.lastbalance = self.balance
         if self.win:
 
             self.balance = self.payout * self.nextbet + self.balance - self.nextbet
@@ -89,6 +91,7 @@ class Dice:
             self.balance = self.balance - self.nextbet
 
         self.profit = self.balance - self.start_balance
+        self.currentprofit = self.balance - self.lastbalance
 
     def winloss(self):
 
@@ -144,6 +147,7 @@ lua_func = lua.eval('''
         bethigh = bot.bethigh
         chance = bot.chance
         profit = bot.profit
+        currentprofit = bot.currentprofit
         previousbet = bot.previousbet
         resetstats = bot.resetstats
         resetseed = bot.resetseed
