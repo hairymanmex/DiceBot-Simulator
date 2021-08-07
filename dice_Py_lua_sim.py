@@ -298,7 +298,7 @@ def main():
     if responce == 1:
         casino = stake_prng.stake_casino()
     elif responce == 2:
-        casino == bitsler_prng.bitsler()
+        casino = bitsler_prng.bitsler()
     else:
         casino = wolfbet_prng.wolfbet()
 
