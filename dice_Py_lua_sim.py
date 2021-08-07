@@ -62,6 +62,8 @@ class Dice:
         self.amount = 0
         self.previousbalance = 0
         self.plot = False
+        self.wins = 0
+        self.losses = 0
 
 
 
@@ -106,6 +108,20 @@ class Dice:
             else:
                 self.win = False
 
+        if self.win:
+            self.wins += 1
+            if self.currentstreak < 0:
+                self.currentstreak = 1
+            else:
+                self.currentstreak += 1
+        else:
+            self.losses += 1
+            if self.currentstreak > 0
+                self.currentstreak = -1
+            else:
+                self.currentstreak -= 1
+
+
     def seeds(self,serverseed,clientseed):
         self.serverseed = serverseed
         self.clientseed = clientseed
@@ -148,6 +164,7 @@ lua_func = lua.eval('''
         chance = bot.chance
         profit = bot.profit
         currentprofit = bot.currentprofit
+        currentstreak = bot.currentstreak
         previousbet = bot.previousbet
         resetstats = bot.resetstats
         resetseed = bot.resetseed
