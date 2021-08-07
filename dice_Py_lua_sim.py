@@ -126,9 +126,16 @@ class Dice:
 
     def resetseed(self):
         pass
+    def ching(self):
+        pass
 
 lua_func = lua.eval('''
         function(bot,file) -- pass python object into lua space with this function
+        number_of_rolls = bot.number_of_rolls
+        function stop()
+            number_of_rolls = 0
+        end
+            
         
         bot.previousbet = bot.nextbet
         balance = bot.balance  
@@ -136,7 +143,11 @@ lua_func = lua.eval('''
         lastbet = bot.lastbet 
         bethigh = bot.bethigh
         chance = bot.chance
+        profit = bot.profit
         previousbet = bot.previousbet
+        resetstats = bot.resetstats
+        resetseed = bot.resetseed
+        ching = bot.ching
         
         
             
@@ -156,8 +167,10 @@ lua_func = lua.eval('''
         end 
         
         python.eval('bot1.attribute_update()')
-        while bot.number_of_rolls > bot.nonce do
+        while number_of_rolls > bot.nonce do
             python.eval("bot1.gen()")
+            
+                       
             win = bot.win 
             if win then
                 win2 = ' win '
@@ -189,7 +202,7 @@ lua_func = lua.eval('''
             if bot.nextbet > bot.balance then
                 break
             end 
-                      
+            
         end            
     end
     ''')
@@ -250,8 +263,8 @@ def main():
 
     bot1.plot = True
     bot1.edge = 1
-    bot1.balance = 10000.0
-    bot1.number_of_rolls = 3
+    bot1.balance = 100.0
+    bot1.number_of_rolls = 5
     bot1.seeds(server_seed, client_seed)
     #bot1.seeds(stake_server[1],stake_client[1])
     lua_func(bot1,script)
