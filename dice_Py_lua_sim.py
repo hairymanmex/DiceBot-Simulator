@@ -286,19 +286,31 @@ def luckyset(previousluck, luckynumber, nonce):        # this can be used for se
 
 def main():
     script = input("Enter lua script file name: ")
-    server_seed = 'b28abbe1828e9aca7563e1bf82e8d28908d80998285d4e145c7a5fe8b7a33bf5'
-    client_seed = '58c325924f611c2eee6771db70ed9572'
+    server_seed = input("Enter server seed or hit enter for Default: ") or 'b28abbe1828e9aca7563e1bf82e8d28908d80998285d4e145c7a5fe8b7a33bf5'
+    client_seed = input("Enter client seed or hit enter for Default: ") or '58c325924f611c2eee6771db70ed9572'
     #nonce = '1143448'
 
-    #casino = stake_prng.stake_casino()
-    #casino = bitsler_prng.bitsler()
-    casino = wolfbet_prng.wolfbet()
+
+
+    print('select Casino\n #1 Stake.Com \n #2 Bitsler \n #3 Wolf.bet')
+    responce = input(' : ') or 3
+    int(responce)
+    if responce == 1:
+        casino = stake_prng.stake_casino()
+    elif responce == 2:
+        casino == bitsler_prng.bitsler()
+    else:
+        casino = wolfbet_prng.wolfbet()
+
     bot1 = Dice(casino)
 
     bot1.plot = True
-    bot1.edge = 1
-    bot1.balance = 100.0
-    bot1.number_of_rolls = 5
+    bot1.edge = input('Enter House Edge : ') or 1
+    bot1.edge = int(bot1.edge)
+    bot1.balance = input('Enter Balance :') or 100.0
+    bot1.balance = int(bot1.balance)
+    bot1.number_of_rolls = input('Enter Number of Rolls : ') or 10000
+    bot1.number_of_rolls = int(bot1.number_of_rolls)
     bot1.seeds(server_seed, client_seed)
     #bot1.seeds(stake_server[1],stake_client[1])
     lua_func(bot1,script)
