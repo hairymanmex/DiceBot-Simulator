@@ -134,7 +134,14 @@ class Dice:
         self.nextbet = g.nextbet
         self.bethigh = g.bethigh
         self.payout = (100-self.edge) / self.chance
+
+
+    def nonce_update(self):
         self.start_balance = self.balance
+        self.nonce = int(self.nonce_start)
+        self.nonce_start = int(self.nonce_start)
+        self.number_of_rolls = int(self.number_of_rolls)
+        self.number_of_rolls = self.number_of_rolls + self.nonce
 
 
     def previous(self):
@@ -154,7 +161,8 @@ class Dice:
 
 lua_func = lua.eval('''
         function(bot,file) -- pass python object into lua space with this function
-        number_of_rolls = bot.number_of_rolls
+        
+        
         function stop()
             number_of_rolls = 0
         end
@@ -166,6 +174,8 @@ lua_func = lua.eval('''
         lastbet = bot.lastbet 
         bethigh = bot.bethigh
         chance = bot.chance
+        python.eval('bot1.nonce_update()')
+        number_of_rolls = bot.number_of_rolls
         profit = bot.profit
         currentprofit = bot.currentprofit
         currentstreak = bot.currentstreak
@@ -194,6 +204,7 @@ lua_func = lua.eval('''
         end 
         
         python.eval('bot1.attribute_update()')
+        print(number_of_rolls,bot.nonce)
         while number_of_rolls > bot.nonce do
             python.eval("bot1.gen()")
             
@@ -211,7 +222,7 @@ lua_func = lua.eval('''
                 high2 = 'low'
             end
             
-            print(string.format('stake: %2.8f %s balance: %8.8f wager: %8.8f roll: %2.2f %s',bot.nextbet,win2,bot.balance,bot.wager,bot.roll,high2))
+            print(string.format('stake: %2.8f %s balance: %8.8f wager: %8.8f roll: %2.2f nonce: %d %s',bot.nextbet,win2,bot.balance,bot.wager,bot.roll,bot.nonce,high2))
             balance = bot.balance  
             
             lastbet = bot.lastbet 
@@ -273,6 +284,7 @@ def luckyset(previousluck, luckynumber, nonce):        # this can be used for se
     luckeyset = []
     luckeynumberarray = []
     luckeytally = []
+    nonce = int(nonce)
 
     nonceset.append(nonce-1)
     nonceset.append(nonce)
@@ -306,9 +318,10 @@ def main():
 
     bot1.plot = True
     bot1.edge = input('Enter House Edge : ') or 1
-    bot1.edge = int(bot1.edge)
+    bot1.edge = float(bot1.edge)
     bot1.balance = input('Enter Balance :') or 100.0
     bot1.balance = int(bot1.balance)
+    bot1.nonce_start = input('Enter Starting Nonce :') or 1
     bot1.number_of_rolls = input('Enter Number of Rolls : ') or 10000
     bot1.number_of_rolls = int(bot1.number_of_rolls)
     bot1.seeds(server_seed, client_seed)
