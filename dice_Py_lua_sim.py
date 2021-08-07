@@ -136,7 +136,7 @@ lua_func = lua.eval('''
             number_of_rolls = 0
         end
             
-        
+        bets = 0
         bot.previousbet = bot.nextbet
         balance = bot.balance  
         win = bot.win 
@@ -170,7 +170,7 @@ lua_func = lua.eval('''
         while number_of_rolls > bot.nonce do
             python.eval("bot1.gen()")
             
-                       
+            bets = bets + 1           
             win = bot.win 
             if win then
                 win2 = ' win '
