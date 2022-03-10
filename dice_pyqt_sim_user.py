@@ -324,7 +324,6 @@ lua_func = lua.eval('''
             wagered = bot.wager
 
 
-
             dobet()
 
             if nextbet < 1e-8 then
@@ -413,7 +412,6 @@ def main():
     if bot1.qtplot:
         Dice.balance_set = np.append(Dice.balance_set, Dice.balance_set1)
         pyqtplot(bot1)
-
 
 if __name__ == '__main__':
     main()
