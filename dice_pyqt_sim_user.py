@@ -371,9 +371,7 @@ def main():
     avgsize = 25
 
     print('Shall we play a Game?')
-    script = input("Enter lua script file name: ")
-    server_seed = input("Enter server seed or hit enter for Default: ") or '9e34592a544e4ac3b2a534d7d56b73fe0d42fc4e6ed297c65d9302632fd7988a'
-    client_seed = input("Enter client seed or hit enter for Default: ") or 'Meowcatmeow'
+    script = input("Enter lua script file name: ")   
 
     print('select Casino\n #1 Stake.Com \n #2 Bitsler \n #3 Wolf.bet')
     responce = input(' : ') or 3
@@ -387,6 +385,9 @@ def main():
     else:
         casino_prng = wolfbet_prng.wolfbet()
         casino_name = "wolf"
+        
+    server_seed = input("Enter server seed or hit enter for Default: ") or '9e34592a544e4ac3b2a534d7d56b73fe0d42fc4e6ed297c65d9302632fd7988a'
+    client_seed = input("Enter client seed or hit enter for Default: ") or 'Meowcatmeow'
 
     bot1 = Dice(casino_prng,casino_name)
 
