@@ -138,14 +138,13 @@ class Dice:
         self.profit = self.balance - self.start_balance
         self.Profit = self.balance - self.start_balance
 
-    def winloss(self):
-        if self.casino_name == "stake":
-            # stake = (math.floor((((100 - self.chance) * 100)) + 0.000000000001)) / 100
-            stake = (100 - self.chance)-0.01
+        def winloss(self):
+        if self.casino_name == "stake":            
+            stake = (math.floor((((100 - chance - 0.01) * 100)) + 0.000000001)) / 100
         elif self.casino_name == "justdice":
-            stake = (100 - self.chance)-0.0001
+            stake = (math.floor((((100 - chance-0.0001) * 10000)) + 0.000000001)) / 10000
         else:
-            stake = (100 - self.chance)-0.01
+            stake = (math.floor((((100 - chance - 0.01) * 100)) + 0.000000001)) / 100
 
         if self.bethigh == False:
             if self.roll < self.chance:
