@@ -2,7 +2,7 @@ import numpy as np
 import hmac
 import random
 import hashlib
-import justdice_prng, primdice_prng, stake_prng, bitsler_prng, wolfbet_prng
+import justdice_prng, primedice_prng, stake_prng, bitsler_prng, wolfbet_prng
 import math
 from PyQt5.QtWidgets import *
 import pyqtgraph as pg
@@ -408,7 +408,7 @@ def main():
         casino_name = "stake"
     elif responce == "2":
         print('Primedice.com selected')
-        casino_prng = primdice_prng.prime()
+        casino_prng = primdice_prng.primedice()
         casino_name = "prime"
     elif responce == "3":
         print('Bitsler.com selected')
