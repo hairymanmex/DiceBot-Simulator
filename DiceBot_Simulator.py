@@ -408,7 +408,7 @@ def main():
         casino_name = "stake"
     elif responce == "2":
         print('Primedice.com selected')
-        casino_prng = primdice_prng.primedice()
+        casino_prng = primdice_prng.prime()
         casino_name = "prime"
     elif responce == "3":
         print('Bitsler.com selected')
