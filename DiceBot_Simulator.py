@@ -227,6 +227,15 @@ class Dice:
         elif self.casino_name == "wolf":
             self.serverseed = seed[0:64]
             self.clientseed = seed[105:125]
+        elif self.casino_name == "prime":
+            self.serverseed = seed[0:54]
+            self.clientseed = seed[110:120]
+        elif self.casino_name == "justdice":
+            self.serverseed = seed[0:54]
+            self.clientseed = seed[100:124]
+        else:
+            self.serverseed = seed[0:54]
+            self.clientseed = seed[110:120]
 
         self.nonce = 1
 
