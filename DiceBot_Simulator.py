@@ -2,10 +2,7 @@ import numpy as np
 import hmac
 import random
 import hashlib
-import justdice_prng
-import stake_prng
-import bitsler_prng
-import wolfbet_prng
+import justdice_prng, primdice_prng, stake_prng, bitsler_prng, wolfbet_prng
 import math
 from PyQt5.QtWidgets import *
 import pyqtgraph as pg
@@ -19,11 +16,6 @@ lua = LuaRuntime(unpack_returned_tuples=True)
 '''Need to call the lua objects and variables into python space into 
     object g in order to comunicate back and forth between lua and python'''
 g = lua.globals()
-
-stake_server = ('d8782071e497e4bc7a4e39c0b6c0e507f03c721070d6e12dfd57513c9f68b559',
-                '9a7bbd71f048649154c7e1baa7bfe880558cd648d1f93e832d3cc9cdf9957c98')
-stake_client = ('e8159d21c1', '151563870')
-
 
 class Dice:
     balance_set = np.array([])
@@ -407,22 +399,26 @@ def main():
     print('Shall we play a Game?')
     script = input("Enter lua script file name: ")
 
-    print('select Casino\n #1 Stake.Com \n #2 Bitsler \n #3 Wolf.bet \n #4 Just-dice')
-    responce = input(' : ') or "4"
+    print('select Casino\n #1 Stake.Com \n #2 Primedice.com \n #3 Bitsler \n #4 Wolf.bet \n #5 Just-dice')
+    responce = input(' : ') or "5"
 
     if responce == "1":
         print('Stake.com selected')
         casino_prng = stake_prng.stake_casino()
         casino_name = "stake"
     elif responce == "2":
+        print('Primedice.com selected')
+        casino_prng = primdice_prng.primedice()
+        casino_name = "prime"
+    elif responce == "3":
         print('Bitsler.com selected')
         casino_prng = bitsler_prng.bitsler()
         casino_name = "bitsler"
-    elif responce == "3":
+    elif responce == "4":
         print('Wolf.bet Selected')
         casino_prng = wolfbet_prng.wolfbet()
         casino_name = "wolf"
-    elif responce == "4":
+    elif responce == "5":
         print('Just-dice.com selected')
         casino_prng = justdice_prng.justdice()
         casino_name = "justdice"
