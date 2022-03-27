@@ -138,7 +138,7 @@ class Dice:
         self.profit = self.balance - self.start_balance
         self.Profit = self.balance - self.start_balance
 
-        def winloss(self):
+    def winloss(self):
         if self.casino_name == "stake":            
             stake = (math.floor((((100 - self.chance - 0.01) * 100)) + 0.000000001)) / 100
         elif self.casino_name == "justdice":
