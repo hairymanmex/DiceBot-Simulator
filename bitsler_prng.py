@@ -7,7 +7,7 @@ class bitsler:
     def __init__(self):
         self.luckynumber = 0
 
-    def generate(self, nonce, clientseed, serverseed):
+    def generator(self, nonce, clientseed, serverseed):
 
         snonce = str(nonce)
         bnonce = bytes(snonce, 'UTF-8')
